@@ -18,16 +18,21 @@ const App = () => {
     },
   ]);
 
-  function sendMessage(text, user) {
+  function sendMessage(text, user, customId) {
+    if (text === null) {
+      setMessage((prev) => prev.filter((msg) => msg.id !== customId));
+    }
     setMessage((prev) => [
       ...prev,
-      { message: text, sender: user, id: crypto.randomUUID() },
+      { message: text, sender: user, id: customId || crypto.randomUUID() },
     ]);
   }
 
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
     <>
-      <ChatInput onSend={sendMessage} />
+      <ChatInput onSend={sendMessage} isLoading={isLoading} setIsLoading={setIsLoading} />
       <ChatMessages messages={messages} />
     </>
   );

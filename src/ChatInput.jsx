@@ -1,18 +1,24 @@
 import { useState } from "react";
 import "./lib/chatbot.js";
 
-const ChatInput = ({ onSend }) => {
+const ChatInput = ({ onSend, isLoading, setIsLoading }) => {
   const [text, setText] = useState("");
 
-  function handleSend() {
-    if (!text.trim()) return;
-    onSend(text, 'user');
-    const response = Chatbot.getResponse(text);
-    onSend(response, 'robot');
+  async function handleSend() {
+    if (!text.trim() || isLoading) return;
+    setIsLoading(true);
+
+    onSend(text, "user");
     setText("");
+    const loadingId = crypto.randomUUID();
+    onSend("Loading...", "robot", loadingId);
+    const response = await Chatbot.getResponseAsync(text);
+    onSend(null, null, loadingId);
+    onSend(response, "robot");
+    setIsLoading(false);
+
     console.log(response);
   }
-
 
   return (
     <div>
@@ -21,12 +27,13 @@ const ChatInput = ({ onSend }) => {
         placeholder="Send a message to ChatBot"
         size={30}
         value={text}
+        disabled={isLoading}
         onChange={(e) => {
           setText(e.target.value);
         }}
       />
       <button>Send</button>
-      <button onClick={handleSend}>testing button</button>
+      <button onClick={handleSend} disabled={isLoading}>testing button</button>
     </div>
   );
 };
