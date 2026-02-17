@@ -3,13 +3,13 @@ import robotImg from "./images/robot.png";
 
 const ChatMessage = ({ message, sender }) => {
   return (
-    <div>
-      {sender === "robot" && (
-        <img src={robotImg} alt="robot image" width={50} />
-      )}
-      {message}
-      {sender === "user" && <img src={userImg} alt="user image" width={50} />}
-    </div>
+      <div className={sender === "robot" ? "robot-message" : "user-message"}>
+        {sender === "robot" && (
+          <img src={robotImg} alt="robot image" width={50} />
+        )}
+        <p>{message}</p>
+        {sender === "user" && <img src={userImg} alt="user image" width={50} />}
+      </div>
   );
 };
 

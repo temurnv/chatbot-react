@@ -21,6 +21,7 @@ const App = () => {
   function sendMessage(text, user, customId) {
     if (text === null) {
       setMessage((prev) => prev.filter((msg) => msg.id !== customId));
+      return;
     }
     setMessage((prev) => [
       ...prev,
@@ -31,10 +32,14 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <>
-      <ChatInput onSend={sendMessage} isLoading={isLoading} setIsLoading={setIsLoading} />
+    <div className="app-container">
       <ChatMessages messages={messages} />
-    </>
+      <ChatInput
+        onSend={sendMessage}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+      />
+    </div>
   );
 };
 

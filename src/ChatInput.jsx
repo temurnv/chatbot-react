@@ -21,7 +21,7 @@ const ChatInput = ({ onSend, isLoading, setIsLoading }) => {
   }
 
   return (
-    <div>
+    <div className="input-area">
       <input
         type="text"
         placeholder="Send a message to ChatBot"
@@ -32,8 +32,7 @@ const ChatInput = ({ onSend, isLoading, setIsLoading }) => {
           setText(e.target.value);
         }}
       />
-      <button>Send</button>
-      <button onClick={handleSend} disabled={isLoading}>testing button</button>
+      <button onClick={handleSend} disabled={isLoading}>Send</button>
     </div>
   );
 };
