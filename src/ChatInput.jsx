@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./lib/chatbot.js";
+import Chatbot from "./lib/chatbot";
 
 const ChatInput = ({ onSend, isLoading, setIsLoading }) => {
   const [text, setText] = useState("");
